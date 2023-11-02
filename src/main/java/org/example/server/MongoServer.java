@@ -7,7 +7,6 @@ import org.example.model.Recipient;
 import org.example.model.Supplier;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MongoServer implements MongoInterface{
@@ -19,6 +18,7 @@ public class MongoServer implements MongoInterface{
 
         // Get a handle to the "myapp" database
         database = mongoClient.getDatabase("db");
+        //TODO: Datenbank zum laufen kriegen
         //Create Collection
         database.createCollection("Package");
         database.createCollection("Recipient");
