@@ -1,17 +1,17 @@
 package org.example.server;
-import java.util.List;
 
 import org.bson.Document;
-import org.example.model.Package;
-import org.example.model.Recipient;
-import org.example.model.Supplier;
+
+import java.util.List;
 
 public interface MongoInterface {
     /**
      * @param collectionName
      * @return
      */
-    List<Package> findPackageDocuments(String collectionName);
-    List<Recipient> findRecipientDocuments(String collectionName);
-    List<Supplier> findSupplierDocuments(String collectionName);
+    List<Document> findPackageDocuments(String collectionName);
+
+    List<Document> findRecipientDocuments(String collectionName);
+
+    List<Document> findSupplierDocuments(String collectionName);
 }

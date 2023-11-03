@@ -29,11 +29,11 @@ public class Main {
         //TODO: create und edit einfügen
         switch (nextLine[0]) {
             case "getRecipients":
-                System.out.println(db.findRecipientDocuments("Recipient"));
+                System.out.println();
             case "getSuppliers":
-                System.out.println(db.findSupplierDocuments("Supplier"));
+                System.out.println();
             case "getPackages":
-                System.out.println(db.findPackageDocuments("Package"));
+                System.out.println(db.findPackageDocuments("Package").toString());
 
             case "createRecipient":
                 System.out.println();

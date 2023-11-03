@@ -24,43 +24,48 @@ public class MongoServer implements MongoInterface{
         database.createCollection("Recipient");
         database.createCollection("Supplier");
 
+        MongoCollection<Document> recipientCollection = database.getCollection("Recipient");
         MongoCollection<Document> packageCollection = database.getCollection("Package");
-        Recipient recipient1 = new Recipient("s", "d", "a", "1","e");
-        Recipient recipient2 = new Recipient("s2", "d2", "a2", "12","e2");
-        Package aPackage1 = new Package("asdf1",1,1,1,1, recipient1);
-        Package aPackage2 = new Package("asdf2",2,2,2,2, recipient2);
-        Package aPackage3 = new Package("asdf3",2,2,2,2, recipient2);
+        MongoCollection<Document> supplierCollection = database.getCollection("Supplier");
+
+        //Daten erstellen
+        Recipient recipient1 = new Recipient(1, "s", "d", "a", "1", "e");
+        Recipient recipient2 = new Recipient(2, "s2", "d2", "a2", "12", "e2");
+
+        Package aPackage1 = new Package("asdf1", 1, 1, 1, 1, 1);
+        Package aPackage2 = new Package("asdf2", 2, 2, 2, 2, 1);
+        Package aPackage3 = new Package("asdf3", 1, 1, 1, 1, 2);
+        Package aPackage4 = new Package("asdf4", 2, 2, 2, 2, 2);
+
         Supplier supplier = new Supplier("a1", "s2", "3f");
         Document document = new Document();
-        database.getCollection("Recipient").insertOne(document.append("r1",recipient1));
-        document.clear();
-        database.getCollection("Recipient").insertOne(document.append("r2",recipient2));
-        document.clear();
-        database.getCollection("Package").insertOne(document.append("p1",aPackage1));
-        document.clear();
-        database.getCollection("Package").insertOne(document.append("p2",aPackage2));
-        document.clear();
-        database.getCollection("Package").insertOne(document.append("p3",aPackage3));
-        document.clear();
-        database.getCollection("Supplier").insertOne(document.append("s1",supplier));
-        document.clear();
+
+        recipientCollection.insertOne(document.append("r1", recipient1));
+        recipientCollection.insertOne(document.append("r2", recipient2));
+
+        packageCollection.insertOne(document.append("p1", aPackage1));
+        packageCollection.insertOne(document.append("p2", aPackage2));
+        packageCollection.insertOne(document.append("p3", aPackage3));
+        packageCollection.insertOne(document.append("p4", aPackage4));
+
+        supplierCollection.insertOne(document.append("s1", supplier));
     }
 
     @Override
-    public List<Package> findPackageDocuments(String collectionName) {
-        List<Package> result = new ArrayList<Package>();
-        MongoCollection<Document> collection = database.getCollection(collectionName);
-        FindIterable<Document> find = collection.find();
+    public List<Document> findPackageDocuments(String collectionName) {
+        MongoCollection<Document> packageCollection = database.getCollection("Package");
+        FindIterable<Document> find = packageCollection.find();
+        List<Document> documents = null;
         for (Document document : find) {
-            result.add((Package) document.get("p1"));
-            result.add((Package) document.get("p2"));
-            result.add((Package) document.get("p3"));
+            if (document != null) {
+                documents.add(document);
+            }
         }
-        return result;
+        return documents;
     }
 
     @Override
-    public List<Recipient> findRecipientDocuments(String collectionName) {
+    public List<Document> findRecipientDocuments(String collectionName) {
         List<Recipient> result = new ArrayList<Recipient>();
         MongoCollection<Document> collection = database.getCollection(collectionName);
         FindIterable<Document> find = collection.find();
@@ -68,17 +73,17 @@ public class MongoServer implements MongoInterface{
             result.add((Recipient) document.get("r1"));
             result.add((Recipient) document.get("r2"));
         }
-        return result;
+        return null;
     }
 
     @Override
-    public List<Supplier> findSupplierDocuments(String collectionName) {
+    public List<Document> findSupplierDocuments(String collectionName) {
         List<Supplier> result = new ArrayList<Supplier>();
         MongoCollection<Document> collection = database.getCollection(collectionName);
         FindIterable<Document> find = collection.find();
         for (Document document : find) {
             result.add((Supplier) document.get("s1"));
         }
-        return result;
+        return null;
     }
 }
