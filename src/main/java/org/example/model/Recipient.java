@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Recipient {
+    private int id;
     private String first_name;
     private String last_name;
     private String address;

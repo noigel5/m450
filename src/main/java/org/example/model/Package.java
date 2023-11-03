@@ -11,5 +11,5 @@ public class Package {
     private int length;
     private int depth;
     private int height;
-    private Recipient recipient;
+    private int recipient_id;
 }

@@ -11,26 +11,28 @@ public class Main {
         MongoInterface db = new MongoServer();
 
         System.out.println("""
-                getRecipient -> gibt alle Recipients aus
-                getSupplier -> gibt alle Supplier aus
-                getPackage -> gibt alle Packages aus
+                getRecipients -> gibt alle Recipients aus
+                getSuppliers -> gibt alle Supplier aus
+                getPackages -> gibt alle Packages aus
                                 
-                createRecipient -> erstellt einen neuen Recipient
-                createSupplier -> erstellt einen neuen Supplier
-                createPackage -> erstellt ein neues Paket
+                createRecipient first_name last_name address phone_number email-> erstellt einen neuen Recipient
+                createSupplier first_name last_name store_location-> erstellt einen neuen Supplier
+                createPackage content weight length depth height recipient_id -> erstellt ein neues Paket
                                 
                 editRecipient recipient_id spaltenname neuer_Wet -> bearbeitet einen Wert von Recipient
                 editSupplier supplier_id spaltenname neuer_Wet -> bearbeitet einen Wert von Supplier
                 editPackage package_id spaltenname neuer_Wet -> bearbeitet einen Wert von Package
                 """);
 
+        String[] nextLine = scanner.nextLine().split(" ");
+
         //TODO: create und edit einfügen
-        switch (scanner.nextLine()) {
-            case "getRecipient":
+        switch (nextLine[0]) {
+            case "getRecipients":
                 System.out.println(db.findRecipientDocuments("Recipient"));
-            case "getSupplier":
+            case "getSuppliers":
                 System.out.println(db.findSupplierDocuments("Supplier"));
-            case "getPackage":
+            case "getPackages":
                 System.out.println(db.findPackageDocuments("Package"));
 
             case "createRecipient":
