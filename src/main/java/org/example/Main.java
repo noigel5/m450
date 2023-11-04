@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.model.Package;
+import org.example.model.Recipient;
+import org.example.model.Supplier;
 import org.example.server.MongoInterface;
 import org.example.server.MongoServer;
 
@@ -23,31 +26,43 @@ public class Main {
                 editSupplier supplier_id spaltenname neuer_Wet -> bearbeitet einen Wert von Supplier
                 editPackage package_id spaltenname neuer_Wet -> bearbeitet einen Wert von Package
                 """);
+//        System.out.println(db.findRecipientDocuments().stream().map(recipient -> recipient.getFirstName()).collect(Collectors.joining(", ")));
 
         String[] nextLine = scanner.nextLine().split(" ");
 
         //TODO: create und edit einfügen
-        switch (nextLine[0]) {
-            case "getRecipients":
-                System.out.println();
-            case "getSuppliers":
-                System.out.println();
-            case "getPackages":
-                System.out.println(db.findPackageDocuments("Package").toString());
-
-            case "createRecipient":
-                System.out.println();
-            case "createSupplier":
-                System.out.println();
-            case "createPackage":
-                System.out.println();
-
-            case "editRecipient":
-                System.out.println();
-            case "editSupplier":
-                System.out.println();
-            case "editPackage":
-                System.out.println();
+        for (int i=0; i<nextLine.length;i++){
+            switch (nextLine[i]) {
+                case "getRecipients":
+                    db.findRecipients().forEach(Recipient::print);
+                    break;
+                case "getSuppliers":
+                    db.findSuppliers().forEach(Supplier::print);
+                    break;
+                case "getPackages":
+                    db.findPackages().forEach(Package::print);
+                    break;
+                case "createRecipient":
+                    Recipient recipient = new Recipient(nextLine[i+1],nextLine[i+2], nextLine[i+3], nextLine[i+4], nextLine[i+5]);
+                    db.addRecipient(recipient);
+                    recipient.print();
+                    break;
+                case "createSupplier":
+                    System.out.println();
+                    break;
+                case "createPackage":
+                    System.out.println();
+                    break;
+                case "editRecipient":
+                    System.out.println();
+                    break;
+                case "editSupplier":
+                    System.out.println();
+                    break;
+                case "editPackage":
+                    System.out.println();
+                    break;
+            }
         }
     }
 }
