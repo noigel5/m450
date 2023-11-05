@@ -2,9 +2,11 @@ package org.example.server;
 
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.conversions.Bson;
 import org.example.model.Package;
 import org.example.model.Recipient;
 import org.example.model.Supplier;
@@ -147,5 +149,32 @@ public class MongoServer implements MongoInterface {
     @Override
     public void addSupplier(Supplier supplier) {
         supplierCollection.insertOne(new Document(supplier.toMap()));
+    }
+
+    /**
+     * @param recipientEdit
+     */
+    @Override
+    public void editRecipient(Recipient recipientEdit) {
+        Bson filter = Filters.eq("id", recipientEdit.getId());
+        recipientCollection.findOneAndReplace(filter, new Document(recipientEdit.toMap()));
+    }
+
+    /**
+     * @param supplierEdit
+     */
+    @Override
+    public void editSupplier(Supplier supplierEdit) {
+        Bson filter = Filters.eq("id", supplierEdit.getId());
+        supplierCollection.findOneAndReplace(filter, new Document(supplierEdit.toMap()));
+    }
+
+    /**
+     * @param aPackageEdit
+     */
+    @Override
+    public void editPackage(Package aPackageEdit) {
+        Bson filter = Filters.eq("id", aPackageEdit.getId());
+        packageCollection.findOneAndReplace(filter, new Document(aPackageEdit.toMap()));
     }
 }

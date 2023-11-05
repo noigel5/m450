@@ -21,5 +21,9 @@ public interface MongoInterface {
     void addSupplier(Supplier supplier);
 
 
+    void editRecipient(Recipient recipient);
 
+    void editSupplier(Supplier supplierEdit);
+
+    void editPackage(Package aPackageEdit);
 }

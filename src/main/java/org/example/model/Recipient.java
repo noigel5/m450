@@ -15,8 +15,7 @@ public class Recipient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NonNull
-    private String firstName;
+    @NonNull private String firstName;
     @NonNull private String lastName;
     @NonNull private String address;
     @NonNull private String phoneNumber;
