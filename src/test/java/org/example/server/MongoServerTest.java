@@ -54,13 +54,22 @@ class MongoServerTest {
 
     @Test
     void editRecipient() {
+        Recipient recipientEdit = new Recipient(1, "test", "test", "test", "test", "test");
+        mongoServer.editRecipient(recipientEdit);
+        assertThat(mongoServer.findRecipients().contains(recipientEdit));
     }
 
     @Test
     void editSupplier() {
+        Supplier supplierEdit = new Supplier(1, "test", "test", "test");
+        mongoServer.editSupplier(supplierEdit);
+        assertThat(mongoServer.findSuppliers().contains(supplierEdit));
     }
 
     @Test
     void editPackage() {
+        Package aPackageEdit = new Package(1, "test", 1, 1, 1,1,1);
+        mongoServer.editPackage(aPackageEdit);
+        assertThat(mongoServer.findPackages().contains(aPackageEdit));
     }
 }
