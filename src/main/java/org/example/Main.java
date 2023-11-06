@@ -33,7 +33,6 @@ public class Main {
 
             String[] nextLine = scanner.nextLine().split(" ");
 
-            //TODO: create und edit einfügen
             for (int i = 0; i < nextLine.length; i++) {
                 switch (nextLine[i]) {
                     case "getRecipients":

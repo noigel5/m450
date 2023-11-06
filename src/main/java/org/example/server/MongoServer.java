@@ -55,7 +55,6 @@ public class MongoServer implements MongoInterface {
         }
         database = mongoClient.getDatabase("db");
 
-        //TODO: Datenbank zum laufen kriegen
         //Create Collection
         database.createCollection(RECIPIENT);
         database.createCollection(PACKAGE);
