@@ -68,12 +68,12 @@ public class MongoServer implements MongoInterface {
         Recipient recipient1 = new Recipient(1, "s", "d", "a", "1", "e");
         Recipient recipient2 = new Recipient(2, "s2", "d2", "a2", "12", "e2");
 
-        Package aPackage1 = new Package("asdf1", 1, 1, 1, 1, 1);
-        Package aPackage2 = new Package("asdf2", 2, 2, 2, 2, 1);
-        Package aPackage3 = new Package("asdf3", 1, 1, 1, 1, 2);
-        Package aPackage4 = new Package("asdf4", 2, 2, 2, 2, 2);
+        Package aPackage1 = new Package(1,"asdf1", 1, 1, 1, 1, 1);
+        Package aPackage2 = new Package(2,"asdf2", 2, 2, 2, 2, 1);
+        Package aPackage3 = new Package(3,"asdf3", 1, 1, 1, 1, 2);
+        Package aPackage4 = new Package(4,"asdf4", 2, 2, 2, 2, 2);
 
-        Supplier supplier = new Supplier("a1", "s2", "3f");
+        Supplier supplier = new Supplier(1,"a1", "s2", "3f");
 
         recipientCollection.insertOne(new Document(recipient1.toMap()));
         recipientCollection.insertOne(new Document(recipient2.toMap()));

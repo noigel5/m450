@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 class MongoServerTest {
 
     private MongoServer mongoServer = new MongoServer();
@@ -56,20 +57,23 @@ class MongoServerTest {
     void editRecipient() {
         Recipient recipientEdit = new Recipient(1, "test", "test", "test", "test", "test");
         mongoServer.editRecipient(recipientEdit);
-        assertThat(mongoServer.findRecipients().contains(recipientEdit));
+        boolean containsRecipient = mongoServer.findRecipients().contains(recipientEdit);
+        assert containsRecipient : "Recipient not found in the list";
     }
 
     @Test
     void editSupplier() {
         Supplier supplierEdit = new Supplier(1, "test", "test", "test");
         mongoServer.editSupplier(supplierEdit);
-        assertThat(mongoServer.findSuppliers().contains(supplierEdit));
+        boolean containsSupplier = mongoServer.findSuppliers().contains(supplierEdit);
+        assert containsSupplier : "Supplier not found in the list";
     }
 
     @Test
     void editPackage() {
         Package aPackageEdit = new Package(1, "test", 1, 1, 1,1,1);
         mongoServer.editPackage(aPackageEdit);
-        assertThat(mongoServer.findPackages().contains(aPackageEdit));
+        boolean containsPackage = mongoServer.findPackages().contains(aPackageEdit);
+        assert containsPackage : "Package not found in the list";
     }
 }

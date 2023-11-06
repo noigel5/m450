@@ -24,6 +24,7 @@ public class Supplier {
 
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
         map.put("firstName", firstName);
         map.put("lastName", lastName);
         map.put("storeLocation", storeLocation);

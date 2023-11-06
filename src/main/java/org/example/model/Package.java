@@ -27,6 +27,7 @@ public class Package {
 
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
         map.put("content", content);
         map.put("weight", weight);
         map.put("length", length);
