@@ -22,9 +22,9 @@ public class Main {
                 createSupplier first_name last_name store_location-> erstellt einen neuen Supplier
                 createPackage content weight length depth height recipient_id -> erstellt ein neues Paket
                                 
-                editRecipient recipient_id spaltenname neuer_Wet -> bearbeitet einen Wert von Recipient
-                editSupplier supplier_id spaltenname neuer_Wet -> bearbeitet einen Wert von Supplier
-                editPackage package_id spaltenname neuer_Wet -> bearbeitet einen Wert von Package
+                editRecipient id neue_Werte -> bearbeitet einen Wert von Recipient
+                editSupplier id neue_Werte -> bearbeitet einen Wert von Supplier
+                editPackage id neue_Werte -> bearbeitet einen Wert von Package
                 """);
 //        System.out.println(db.findRecipientDocuments().stream().map(recipient -> recipient.getFirstName()).collect(Collectors.joining(", ")));
         boolean exit = false;
