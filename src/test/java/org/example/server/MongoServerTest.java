@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 class MongoServerTest {
-    private MockMongoServer mongoServerMock = new MockMongoServer();
+    private final MockMongoServer mongoServerMock = new MockMongoServer();
     List<Package> packageList = new ArrayList<>();
     List<Recipient> recipientList = new ArrayList<>();
     List<Supplier> supplierList = new ArrayList<>();
@@ -111,5 +111,23 @@ class MongoServerTest {
         assertThat(mongoServerMock.findPackages()).hasSize(1);
         assertThat(mongoServerMock.findPackages().get(0).getId()).isEqualTo(packageList.get(0).getId());
         assertThat(mongoServerMock.findPackages().get(0)).isEqualTo(aPackageEdit);
+    }
+    @Test
+    void toMapPackage(){
+        Package aPackage=new Package(1, "testP", 5, 2, 3, 4, 1);
+        assertThat(aPackage.toMap()).isEqualTo(packageList.get(0).toMap());
+    }
+
+    @Test
+    void toMapRecipient(){
+        Recipient recipient=new Recipient(1, "firstNameR", "lastNameR", "addressR", "phoneNumberR", "emailR");
+        assertThat(recipient.toMap()).isEqualTo(recipientList.get(0).toMap());
+
+    }
+
+    @Test
+    void toMapSupplier(){
+        Supplier supplier=new Supplier(2, "firstNameS2", "lastNameS2", "storeLocationS2");
+        assertThat(supplier.toMap()).isEqualTo(supplierList.get(0).toMap());
     }
 }
