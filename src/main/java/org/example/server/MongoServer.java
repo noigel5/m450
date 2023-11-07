@@ -94,7 +94,7 @@ public class MongoServer implements MongoInterface {
         FindIterable<Document> find = packageCollection.find();
 
         for (Document document : find) {
-            packageList.add(new Package(document.getString("content"), document.getInteger("weight"),
+            packageList.add(new Package(document.getInteger("id"),document.getString("content"), document.getInteger("weight"),
                     document.getInteger("length"), document.getInteger("depth"),
                     document.getInteger("height"), document.getInteger("recipientId")));
         }
@@ -120,7 +120,7 @@ public class MongoServer implements MongoInterface {
         MongoCollection<Document> collection = database.getCollection(SUPPLIER);
         FindIterable<Document> find = collection.find();
         for (Document document : find) {
-            supplierList.add(new Supplier(document.getString("firstName"),
+            supplierList.add(new Supplier(document.getInteger("id"),document.getString("firstName"),
                     document.getString("lastName"), document.getString("storeLocation")));
         }
         return supplierList;
