@@ -21,28 +21,29 @@ class MongoServerTest {
 
     @BeforeEach
     void setUp() {
-        packageList.add(new Package("test", 1, 1, 1, 1, 2));
-        recipientList.add(new Recipient(3, "test", "test", "test", "test", "test"));
-        supplierList.add(new Supplier(2, "test", "test", "test"));
+        mongoServerMock.addPackage(new Package(1,"test", 1, 1, 1, 1, 2));
+        mongoServerMock.addRecipient(new Recipient(1, "test", "test", "test", "test", "test"));
+        mongoServerMock.addSupplier(new Supplier(1, "test", "test", "test"));
     }
 
     @Test
     void findPackages() {
-        assertThat(mongoServerMock.findPackages()).hasSize(0);
+        assertThat(mongoServerMock.findPackages()).hasSize(1);
     }
 
     @Test
     void findRecipients() {
-        assertThat(mongoServerMock.findRecipients()).hasSize(0);
+        assertThat(mongoServerMock.findRecipients()).hasSize(1);
     }
 
     @Test
     void findSuppliers() {
-        assertThat(mongoServerMock.findSuppliers()).hasSize(0);
+        assertThat(mongoServerMock.findSuppliers()).hasSize(1);
     }
 
     @Test
     void addPackage() {
+
         mongoServerMock.addPackage(packageList.get(0));
 
         assertThat(mongoServerMock.findPackages()).hasSize(1);
