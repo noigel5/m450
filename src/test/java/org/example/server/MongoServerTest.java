@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 
 
 class MongoServerTest {
@@ -44,17 +43,23 @@ class MongoServerTest {
 
     @Test
     void addPackage() {
+        mongoServerMock.addPackage(packageList.get(0));
 
+        assertThat(mongoServerMock.findPackages()).hasSize(1);
     }
 
     @Test
     void addRecipient() {
+        mongoServerMock.addRecipient(recipientList.get(0));
 
+        assertThat(mongoServerMock.findRecipients()).hasSize(1);
     }
 
     @Test
     void addSupplier() {
+        mongoServerMock.addSupplier(supplierList.get(0));
 
+        assertThat(mongoServerMock.findSuppliers()).hasSize(1);
     }
 
     @Test
