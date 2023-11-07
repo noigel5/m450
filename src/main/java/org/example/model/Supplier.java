@@ -32,7 +32,8 @@ public class Supplier {
     }
     public void print(){
         System.out.println("Supplier\n" +
-                "firstName: " + firstName +
+                "id:"+id+
+                ", firstName: " + firstName +
                 ", lastName: " + lastName +
                 ", storeLocation: " + storeLocation );
     }

@@ -39,7 +39,8 @@ public class Package {
 
     public void print(){
         System.out.println("Package\n" +
-                "content: " + content +
+                "id:"+id+
+                ", content: " + content +
                 ", weight: " + weight +
                 ", length: " + length +
                 ", depth: " + depth +

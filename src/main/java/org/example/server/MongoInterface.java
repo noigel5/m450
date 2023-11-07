@@ -6,6 +6,9 @@ import org.example.model.Supplier;
 
 import java.util.List;
 
+/**
+ * Mongo Server interface
+ */
 public interface MongoInterface {
 
     List<Package> findPackages();

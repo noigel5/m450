@@ -14,7 +14,7 @@ import static org.mockito.Mockito.mock;
 
 
 class MongoServerTest {
-    private MongoServer mongoServerMock = mock(MongoServer.class);
+    private MockMongoServer mongoServerMock = new MockMongoServer();
     List<Package> packageList = new ArrayList<>();
     List<Recipient> recipientList = new ArrayList<>();
     List<Supplier> supplierList = new ArrayList<>();
