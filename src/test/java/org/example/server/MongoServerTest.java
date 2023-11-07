@@ -92,6 +92,7 @@ class MongoServerTest {
         Supplier supplierEdit = new Supplier(1, "testEdit1", "testEdit2", "testEdit3");
         mongoServerMock.editSupplier(supplierEdit);
         assertThat(mongoServerMock.findSuppliers()).hasSize(1);
+        assertThat(mongoServerMock.findSuppliers().get(0).getId()).isEqualTo(supplierEdit.getId());
         assertThat(mongoServerMock.findSuppliers().get(0)).isEqualTo(supplierEdit);
     }
 
@@ -101,6 +102,7 @@ class MongoServerTest {
         Package aPackageEdit = new Package(1, "testEdit1", 2, 3, 4, 5, 1);
         mongoServerMock.editPackage(aPackageEdit);
         assertThat(mongoServerMock.findPackages()).hasSize(1);
+        assertThat(mongoServerMock.findPackages().get(0).getId()).isEqualTo(packageList.get(0).getId());
         assertThat(mongoServerMock.findPackages().get(0)).isEqualTo(aPackageEdit);
     }
 }
