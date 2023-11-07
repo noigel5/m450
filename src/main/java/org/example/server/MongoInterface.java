@@ -29,4 +29,11 @@ public interface MongoInterface {
     void editSupplier(Supplier supplierEdit);
 
     void editPackage(Package aPackageEdit);
+
+
+    void deleteRecipient(int id);
+
+    void deleteSupplier(int id);
+
+    void deletePackage(int id);
 }

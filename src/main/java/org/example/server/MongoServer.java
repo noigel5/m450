@@ -176,4 +176,28 @@ public class MongoServer implements MongoInterface {
         Bson filter = Filters.eq("id", aPackageEdit.getId());
         packageCollection.findOneAndReplace(filter, new Document(aPackageEdit.toMap()));
     }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void deleteRecipient(int id) {
+
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void deleteSupplier(int id) {
+
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void deletePackage(int id) {
+
+    }
 }

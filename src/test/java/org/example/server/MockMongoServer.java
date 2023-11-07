@@ -89,4 +89,19 @@ public class MockMongoServer implements MongoInterface {
             }
         }
     }
+
+    @Override
+    public void deleteRecipient(int id) {
+
+    }
+
+    @Override
+    public void deleteSupplier(int id) {
+
+    }
+
+    @Override
+    public void deletePackage(int id) {
+
+    }
 }

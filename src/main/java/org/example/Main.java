@@ -25,6 +25,11 @@ public class Main {
                 editRecipient id neue_Werte -> bearbeitet einen Wert von Recipient
                 editSupplier id neue_Werte -> bearbeitet einen Wert von Supplier
                 editPackage id neue_Werte -> bearbeitet einen Wert von Package
+                
+                editRecipient id neue_Werte -> bearbeitet einen Wert von Recipient
+                editSupplier id neue_Werte -> bearbeitet einen Wert von Supplier
+                editPackage id neue_Werte -> bearbeitet einen Wert von Package
+                
                 """);
 //        System.out.println(db.findRecipientDocuments().stream().map(recipient -> recipient.getFirstName()).collect(Collectors.joining(", ")));
         boolean exit = false;
