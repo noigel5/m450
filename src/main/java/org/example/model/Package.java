@@ -13,7 +13,6 @@ import java.util.Map;
 
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Package {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

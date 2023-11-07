@@ -10,7 +10,6 @@ import java.util.Map;
 
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Recipient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
