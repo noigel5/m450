@@ -21,28 +21,38 @@ class MongoServerTest {
 
     @BeforeEach
     void setUp() {
-        packageList.add(new Package(1, "test", 1, 1, 1, 1, 2));
-        recipientList.add(new Recipient(1, "test", "test", "test", "test", "test"));
-        supplierList.add(new Supplier(1, "test", "test", "test"));
+        packageList.add(new Package(1, "testP", 5, 2, 3, 4, 1));
+        recipientList.add(new Recipient(1, "firstNameR", "lastNameR", "addressR", "phoneNumberR", "emailR"));
+        supplierList.add(new Supplier(1, "firstNameS", "lastNameS", "storeLocationS"));
     }
 
     @Test
     void findPackages() {
         assertThat(mongoServerMock.findPackages()).hasSize(0);
+        mongoServerMock.addPackage(packageList.get(0));
+        assertThat(mongoServerMock.findPackages()).hasSize(1);
+        assertThat(mongoServerMock.findPackages().get(0)).isEqualTo(packageList.get(0));
     }
 
     @Test
     void findRecipients() {
         assertThat(mongoServerMock.findRecipients()).hasSize(0);
+        mongoServerMock.addRecipient(recipientList.get(0));
+        assertThat(mongoServerMock.findRecipients()).hasSize(1);
+        assertThat(mongoServerMock.findRecipients().get(0)).isEqualTo(recipientList.get(0));
     }
 
     @Test
     void findSuppliers() {
         assertThat(mongoServerMock.findSuppliers()).hasSize(0);
+        mongoServerMock.addSupplier(supplierList.get(0));
+        assertThat(mongoServerMock.findSuppliers()).hasSize(1);
+        assertThat(mongoServerMock.findSuppliers().get(0)).isEqualTo(supplierList.get(0));
     }
 
     @Test
     void addPackage() {
+        assertThat(mongoServerMock.findPackages()).hasSize(0);
         mongoServerMock.addPackage(packageList.get(0));
 
         assertThat(mongoServerMock.findPackages()).hasSize(1);
@@ -51,14 +61,15 @@ class MongoServerTest {
 
     @Test
     void addRecipient() {
+        assertThat(mongoServerMock.findRecipients()).hasSize(0);
         mongoServerMock.addRecipient(recipientList.get(0));
-
         assertThat(mongoServerMock.findRecipients()).hasSize(1);
         assertThat(mongoServerMock.findRecipients().get(0)).isEqualTo(recipientList.get(0));
     }
 
     @Test
     void addSupplier() {
+        assertThat(mongoServerMock.findSuppliers()).hasSize(0);
         mongoServerMock.addSupplier(supplierList.get(0));
 
         assertThat(mongoServerMock.findSuppliers()).hasSize(1);
@@ -71,6 +82,7 @@ class MongoServerTest {
         Recipient recipientEdit = new Recipient(1, "testEdit1", "testEdit2", "testEdit3", "testEdit4", "testEdit5");
         mongoServerMock.editRecipient(recipientEdit);
         assertThat(mongoServerMock.findRecipients()).hasSize(1);
+        assertThat(mongoServerMock.findRecipients().get(0).getId()).isEqualTo(recipientEdit.getId());
         assertThat(mongoServerMock.findRecipients().get(0)).isEqualTo(recipientEdit);
     }
 
