@@ -46,6 +46,7 @@ class MongoServerTest {
         mongoServerMock.addPackage(packageList.get(0));
 
         assertThat(mongoServerMock.findPackages()).hasSize(1);
+        assertThat(mongoServerMock.findPackages().get(0)).isEqualTo(packageList.get(0));
     }
 
     @Test
@@ -53,6 +54,7 @@ class MongoServerTest {
         mongoServerMock.addRecipient(recipientList.get(0));
 
         assertThat(mongoServerMock.findRecipients()).hasSize(1);
+        assertThat(mongoServerMock.findRecipients().get(0)).isEqualTo(recipientList.get(0));
     }
 
     @Test
@@ -60,6 +62,7 @@ class MongoServerTest {
         mongoServerMock.addSupplier(supplierList.get(0));
 
         assertThat(mongoServerMock.findSuppliers()).hasSize(1);
+        assertThat(mongoServerMock.findSuppliers().get(0)).isEqualTo(supplierList.get(0));
     }
 
     @Test
