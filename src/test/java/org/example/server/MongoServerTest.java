@@ -65,7 +65,7 @@ class MongoServerTest {
     @Test
     void editRecipient() {
         mongoServerMock.addRecipient(recipientList.get(0));
-        Recipient recipientEdit = new Recipient(1, "testEdit", "testEdit", "testEdit", "testEdit", "testEdit");
+        Recipient recipientEdit = new Recipient(1, "testEdit1", "testEdit2", "testEdit3", "testEdit4", "testEdit5");
         mongoServerMock.editRecipient(recipientEdit);
         assertThat(mongoServerMock.findRecipients()).hasSize(1);
         assertThat(mongoServerMock.findRecipients().get(0)).isEqualTo(recipientEdit);
@@ -74,7 +74,7 @@ class MongoServerTest {
     @Test
     void editSupplier() {
         mongoServerMock.addSupplier(supplierList.get(0));
-        Supplier supplierEdit = new Supplier(1, "testEdit", "testEdit", "testEdit");
+        Supplier supplierEdit = new Supplier(1, "testEdit1", "testEdit2", "testEdit3");
         mongoServerMock.editSupplier(supplierEdit);
         assertThat(mongoServerMock.findSuppliers()).hasSize(1);
         assertThat(mongoServerMock.findSuppliers().get(0)).isEqualTo(supplierEdit);
@@ -83,7 +83,7 @@ class MongoServerTest {
     @Test
     void editPackage() {
         mongoServerMock.addPackage(packageList.get(0));
-        Package aPackageEdit = new Package(1, "testEdit", 1, 1, 1, 1, 1);
+        Package aPackageEdit = new Package(1, "testEdit1", 2, 3, 4, 5, 1);
         mongoServerMock.editPackage(aPackageEdit);
         assertThat(mongoServerMock.findPackages()).hasSize(1);
         assertThat(mongoServerMock.findPackages().get(0)).isEqualTo(aPackageEdit);
