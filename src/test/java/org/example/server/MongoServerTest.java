@@ -68,7 +68,7 @@ class MongoServerTest {
         mongoServerMock.addPackage(packageList.get(0));
         assertThat(mongoServerMock.findPackages()).hasSize(1);
         assertThat(mongoServerMock.findPackages().get(0)).isEqualTo(packageList.get(0));
-        assertThrows(NullPointerException.class, () -> mongoServerMock.addPackage(new Package(0,null, 0,0,0,0,0)));
+        assertThrows(NullPointerException.class, () -> mongoServerMock.addPackage(new Package(0, null, 0, 0, 0, 0, 0)));
         //assertThat(mongoServerMock.findPackages().get(1)).isEqualTo(packageList.get(2));
     }
 
@@ -122,45 +122,54 @@ class MongoServerTest {
         assertThat(mongoServerMock.findPackages()).hasSize(1);
         assertThat(mongoServerMock.findPackages().get(0).getId()).isEqualTo(packageList.get(0).getId());
         assertThat(mongoServerMock.findPackages().get(0)).isEqualTo(aPackageEdit);
-        assertThrows(NullPointerException.class, () -> mongoServerMock.editPackage(new Package(0,null, 0,0,0,0,0)));
+        assertThrows(NullPointerException.class, () -> mongoServerMock.editPackage(new Package(0, null, 0, 0, 0, 0, 0)));
 
     }
 
     @Test
-    void toMapPackage(){
-        Package aPackage=new Package(1, "testP", 5, 2, 3, 4, 1);
+    void toMapPackage() {
+        Package aPackage = new Package(1, "testP", 5, 2, 3, 4, 1);
         assertThat(aPackage.toMap()).isEqualTo(packageList.get(0).toMap());
+        assertThat(aPackage.toMap()).isNotIn(packageList.get(1).toMap());
     }
 
     @Test
-    void toMapRecipient(){
-        Recipient recipient=new Recipient(1, "firstNameR", "lastNameR", "addressR", "phoneNumberR", "emailR");
+    void toMapRecipient() {
+        Recipient recipient = new Recipient(1, "firstNameR", "lastNameR", "addressR", "phoneNumberR", "emailR");
         assertThat(recipient.toMap()).isEqualTo(recipientList.get(0).toMap());
+        assertThat(recipient.toMap()).isNotIn(recipientList.get(1).toMap());
 
     }
 
     @Test
-    void toMapSupplier(){
-        Supplier supplier=new Supplier(2, "firstNameS2", "lastNameS2", "storeLocationS2");
+    void toMapSupplier() {
+        Supplier supplier = new Supplier(2, "firstNameS2", "lastNameS2", "storeLocationS2");
         assertThat(supplier.toMap()).isEqualTo(supplierList.get(1).toMap());
+        assertThat(supplier.toMap()).isNotIn(supplierList.get(0).toMap());
     }
 
     @Test
-    void deletePackage(){
-       mongoServerMock.deletePackage(1);
-       assertThat(mongoServerMock.findPackages()).hasSize(1);
+    void deletePackage() {
+        mongoServerMock.addPackage(packageList.get(0));
+        assertThat(mongoServerMock.findPackages()).hasSize(1);
+        mongoServerMock.deletePackage(1);
+        assertThat(mongoServerMock.findPackages()).hasSize(0);
     }
 
     @Test
-    void deleteRecipient(){
-        mongoServerMock.deleteRecipient(1);
+    void deleteRecipient() {
+        mongoServerMock.addRecipient(recipientList.get(0));
         assertThat(mongoServerMock.findRecipients()).hasSize(1);
+        mongoServerMock.deleteRecipient(1);
+        assertThat(mongoServerMock.findRecipients()).hasSize(0);
 
     }
 
     @Test
-    void deleteSupplier(){
-        mongoServerMock.deleteSupplier(1);
+    void deleteSupplier() {
+        mongoServerMock.addSupplier(supplierList.get(0));
         assertThat(mongoServerMock.findSuppliers()).hasSize(1);
+        mongoServerMock.deleteSupplier(1);
+        assertThat(mongoServerMock.findSuppliers()).hasSize(0);
     }
 }
