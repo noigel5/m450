@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 class MongoServerTest {
@@ -25,8 +26,10 @@ class MongoServerTest {
         packageList.add(new Package(2, "testP2", 25, 22, 23, 24, 2));
         recipientList.add(new Recipient(1, "firstNameR", "lastNameR", "addressR", "phoneNumberR", "emailR"));
         recipientList.add(new Recipient(2, "firstNameR2", "lastNameR2", "addressR2", "phoneNumberR2", "emailR2"));
+//        recipientList.add();
         supplierList.add(new Supplier(1, "firstNameS", "lastNameS", "storeLocationS"));
         supplierList.add(new Supplier(2, "firstNameS2", "lastNameS2", "storeLocationS2"));
+//        supplierList.add(new Supplier(0, null, null, null));
     }
 
     @Test
@@ -65,6 +68,8 @@ class MongoServerTest {
         mongoServerMock.addPackage(packageList.get(0));
         assertThat(mongoServerMock.findPackages()).hasSize(1);
         assertThat(mongoServerMock.findPackages().get(0)).isEqualTo(packageList.get(0));
+        assertThrows(NullPointerException.class, () -> mongoServerMock.addPackage(new Package(0,null, 0,0,0,0,0)));
+        //assertThat(mongoServerMock.findPackages().get(1)).isEqualTo(packageList.get(2));
     }
 
     @Test
@@ -73,6 +78,7 @@ class MongoServerTest {
         mongoServerMock.addRecipient(recipientList.get(0));
         assertThat(mongoServerMock.findRecipients()).hasSize(1);
         assertThat(mongoServerMock.findRecipients().get(0)).isEqualTo(recipientList.get(0));
+        assertThrows(NullPointerException.class, () -> mongoServerMock.addRecipient(new Recipient(0, null, null, null, null, null)));
     }
 
     @Test
@@ -81,6 +87,7 @@ class MongoServerTest {
         mongoServerMock.addSupplier(supplierList.get(0));
         assertThat(mongoServerMock.findSuppliers()).hasSize(1);
         assertThat(mongoServerMock.findSuppliers().get(0)).isEqualTo(supplierList.get(0));
+        assertThrows(NullPointerException.class, () -> mongoServerMock.addSupplier(new Supplier(0, null, null, null)));
     }
 
     @Test
@@ -91,6 +98,8 @@ class MongoServerTest {
         assertThat(mongoServerMock.findRecipients()).hasSize(1);
         assertThat(mongoServerMock.findRecipients().get(0).getId()).isEqualTo(recipientEdit.getId());
         assertThat(mongoServerMock.findRecipients().get(0)).isEqualTo(recipientEdit);
+        assertThrows(NullPointerException.class, () -> mongoServerMock.editRecipient(new Recipient(0, null, null, null, null, null)));
+
     }
 
     @Test
@@ -101,6 +110,8 @@ class MongoServerTest {
         assertThat(mongoServerMock.findSuppliers()).hasSize(1);
         assertThat(mongoServerMock.findSuppliers().get(0).getId()).isEqualTo(supplierEdit.getId());
         assertThat(mongoServerMock.findSuppliers().get(0)).isEqualTo(supplierEdit);
+        assertThrows(NullPointerException.class, () -> mongoServerMock.editSupplier(new Supplier(0, null, null, null)));
+
     }
 
     @Test
@@ -111,7 +122,10 @@ class MongoServerTest {
         assertThat(mongoServerMock.findPackages()).hasSize(1);
         assertThat(mongoServerMock.findPackages().get(0).getId()).isEqualTo(packageList.get(0).getId());
         assertThat(mongoServerMock.findPackages().get(0)).isEqualTo(aPackageEdit);
+        assertThrows(NullPointerException.class, () -> mongoServerMock.editPackage(new Package(0,null, 0,0,0,0,0)));
+
     }
+
     @Test
     void toMapPackage(){
         Package aPackage=new Package(1, "testP", 5, 2, 3, 4, 1);
@@ -128,6 +142,25 @@ class MongoServerTest {
     @Test
     void toMapSupplier(){
         Supplier supplier=new Supplier(2, "firstNameS2", "lastNameS2", "storeLocationS2");
-        assertThat(supplier.toMap()).isEqualTo(supplierList.get(0).toMap());
+        assertThat(supplier.toMap()).isEqualTo(supplierList.get(1).toMap());
+    }
+
+    @Test
+    void deletePackage(){
+       mongoServerMock.deletePackage(1);
+       assertThat(mongoServerMock.findPackages()).hasSize(1);
+    }
+
+    @Test
+    void deleteRecipient(){
+        mongoServerMock.deleteRecipient(1);
+        assertThat(mongoServerMock.findRecipients()).hasSize(1);
+
+    }
+
+    @Test
+    void deleteSupplier(){
+        mongoServerMock.deleteSupplier(1);
+        assertThat(mongoServerMock.findSuppliers()).hasSize(1);
     }
 }
