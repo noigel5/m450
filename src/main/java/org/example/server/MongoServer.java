@@ -182,7 +182,8 @@ public class MongoServer implements MongoInterface {
      */
     @Override
     public void deleteRecipient(int id) {
-
+        Bson filter = Filters.eq("id", id);
+        recipientCollection.deleteOne(filter);
     }
 
     /**
@@ -190,6 +191,8 @@ public class MongoServer implements MongoInterface {
      */
     @Override
     public void deleteSupplier(int id) {
+        Bson filter = Filters.eq("id", id);
+        supplierCollection.deleteOne(filter);
 
     }
 
@@ -198,6 +201,7 @@ public class MongoServer implements MongoInterface {
      */
     @Override
     public void deletePackage(int id) {
-
+        Bson filter = Filters.eq("id", id);
+        packageCollection.deleteOne(filter);
     }
 }

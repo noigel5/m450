@@ -79,6 +79,18 @@ public class Main {
                         db.editPackage(aPackageEdit);
                         aPackageEdit.print();
                         break;
+                    case "deleteRecipient":
+                        db.deleteRecipient(Integer.valueOf(nextLine[i + 1]));
+                        db.findRecipients().forEach(recipient1 -> recipient1.print());
+                        break;
+                    case "deleteSupplier":
+                        db.deleteSupplier(Integer.valueOf(nextLine[i + 1]));
+                        db.findSuppliers().forEach(supplier1 -> supplier1.print());
+                        break;
+                    case "deletePackage":
+                        db.deletePackage(Integer.valueOf(nextLine[i + 1]));
+                        db.findPackages().forEach(aPackage1 -> aPackage1.print());
+                        break;
 
                     case "exit":
                         exit = true;
