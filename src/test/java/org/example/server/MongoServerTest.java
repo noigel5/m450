@@ -131,6 +131,7 @@ class MongoServerTest {
         Package aPackage = new Package(1, "testP", 5, 2, 3, 4, 1);
         assertThat(aPackage.toMap()).isEqualTo(packageList.get(0).toMap());
         assertThat(aPackage.toMap()).isNotIn(packageList.get(1).toMap());
+        assertThrows(NullPointerException.class, () -> new Package(0, null, 0, 0, 0, 0, 0).toMap());
     }
 
     @Test
@@ -138,7 +139,7 @@ class MongoServerTest {
         Recipient recipient = new Recipient(1, "firstNameR", "lastNameR", "addressR", "phoneNumberR", "emailR");
         assertThat(recipient.toMap()).isEqualTo(recipientList.get(0).toMap());
         assertThat(recipient.toMap()).isNotIn(recipientList.get(1).toMap());
-
+        assertThrows(NullPointerException.class, () -> new Recipient(0, null, null, null, null, null).toMap());
     }
 
     @Test
@@ -146,6 +147,7 @@ class MongoServerTest {
         Supplier supplier = new Supplier(2, "firstNameS2", "lastNameS2", "storeLocationS2");
         assertThat(supplier.toMap()).isEqualTo(supplierList.get(1).toMap());
         assertThat(supplier.toMap()).isNotIn(supplierList.get(0).toMap());
+        assertThrows(NullPointerException.class, () -> new Supplier(0, null, null, null).toMap());
     }
 
     @Test
