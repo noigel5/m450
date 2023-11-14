@@ -12,6 +12,7 @@ import org.example.model.Recipient;
 import org.example.model.Supplier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MongoServer implements MongoInterface {
@@ -53,7 +54,15 @@ public class MongoServer implements MongoInterface {
             database = mongoClient.getDatabase("db");
             database.drop();
         }
-        database = mongoClient.getDatabase("db");
+        // MongoDB admin credentials
+        String adminUsername = "admin";
+        String adminPassword = "adminPassword";
+
+        database = mongoClient.getDatabase("admin");
+        database.runCommand( new Document("createUser", adminUsername)
+                .append("pwd", adminPassword)
+                .append("roles", List.of("userAdminAnyDatabase")));
+        System.out.println("Admin user created successfully.");
 
         //Create Collection
         database.createCollection(RECIPIENT);
