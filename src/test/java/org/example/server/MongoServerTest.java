@@ -68,7 +68,6 @@ class MongoServerTest {
         assertThat(mongoServerMock.findPackages()).hasSize(1);
         assertThat(mongoServerMock.findPackages().get(0)).isEqualTo(packageList.get(0));
         assertThrows(NullPointerException.class, () -> mongoServerMock.addPackage(new Package(0, null, 0, 0, 0, 0, 0)));
-        //assertThat(mongoServerMock.findPackages().get(1)).isEqualTo(packageList.get(2));
     }
 
     @Test
