@@ -27,10 +27,8 @@ class MongoServerTest {
         packageList.add(new Package(2, "testP2", 25, 22, 23, 24, 2));
         recipientList.add(new Recipient(1, "firstNameR", "lastNameR", "addressR", "phoneNumberR", "emailR"));
         recipientList.add(new Recipient(2, "firstNameR2", "lastNameR2", "addressR2", "phoneNumberR2", "emailR2"));
-//        recipientList.add();
         supplierList.add(new Supplier(1, "firstNameS", "lastNameS", "storeLocationS"));
         supplierList.add(new Supplier(2, "firstNameS2", "lastNameS2", "storeLocationS2"));
-//        supplierList.add(new Supplier(0, null, null, null));
     }
 
     @Test
