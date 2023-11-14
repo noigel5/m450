@@ -95,22 +95,20 @@ public class MockMongoServer implements MongoInterface {
         recipients.remove(recipients.stream()
                 .filter(recipient -> recipient.getId()==id)
                 .findFirst()
-                .orElse(null) );
+                .orElseThrow());
     }
 
     @Override
     public void deleteSupplier(int id) {
         suppliers.remove(suppliers.stream()
                 .filter(supplier -> supplier.getId()==id)
-                .findFirst()
-                .orElse(null) );
+                .findFirst().orElseThrow());
     }
 
     @Override
     public void deletePackage(int id) {
         packages.remove(packages.stream()
                 .filter(aPackage -> aPackage.getId()==id)
-                .findFirst()
-                .orElse(null) );
+                .findFirst().orElseThrow());
     }
 }

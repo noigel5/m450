@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -123,7 +124,6 @@ class MongoServerTest {
         assertThat(mongoServerMock.findPackages().get(0).getId()).isEqualTo(packageList.get(0).getId());
         assertThat(mongoServerMock.findPackages().get(0)).isEqualTo(aPackageEdit);
         assertThrows(NullPointerException.class, () -> mongoServerMock.editPackage(new Package(0, null, 0, 0, 0, 0, 0)));
-
     }
 
     @Test
@@ -154,6 +154,7 @@ class MongoServerTest {
         assertThat(mongoServerMock.findPackages()).hasSize(1);
         mongoServerMock.deletePackage(1);
         assertThat(mongoServerMock.findPackages()).hasSize(0);
+        assertThrows(NoSuchElementException.class, () -> mongoServerMock.deletePackage(0));
     }
 
     @Test
@@ -162,7 +163,7 @@ class MongoServerTest {
         assertThat(mongoServerMock.findRecipients()).hasSize(1);
         mongoServerMock.deleteRecipient(1);
         assertThat(mongoServerMock.findRecipients()).hasSize(0);
-
+        assertThrows(NoSuchElementException.class, () -> mongoServerMock.deleteRecipient(0));
     }
 
     @Test
@@ -171,5 +172,6 @@ class MongoServerTest {
         assertThat(mongoServerMock.findSuppliers()).hasSize(1);
         mongoServerMock.deleteSupplier(1);
         assertThat(mongoServerMock.findSuppliers()).hasSize(0);
+        assertThrows(NoSuchElementException.class, () -> mongoServerMock.deleteSupplier(0));
     }
 }
