@@ -97,7 +97,6 @@ class MongoServerTest {
         assertThat(mongoServerMock.findRecipients().get(0).getId()).isEqualTo(recipientEdit.getId());
         assertThat(mongoServerMock.findRecipients().get(0)).isEqualTo(recipientEdit);
         assertThrows(NullPointerException.class, () -> mongoServerMock.editRecipient(new Recipient(0, null, null, null, null, null)));
-
     }
 
     @Test
@@ -109,7 +108,6 @@ class MongoServerTest {
         assertThat(mongoServerMock.findSuppliers().get(0).getId()).isEqualTo(supplierEdit.getId());
         assertThat(mongoServerMock.findSuppliers().get(0)).isEqualTo(supplierEdit);
         assertThrows(NullPointerException.class, () -> mongoServerMock.editSupplier(new Supplier(0, null, null, null)));
-
     }
 
     @Test
