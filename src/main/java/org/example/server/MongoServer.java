@@ -1,6 +1,7 @@
 package org.example.server;
 
 import com.mongodb.MongoClientSettings;
+import com.mongodb.MongoException;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
@@ -19,72 +20,83 @@ public class MongoServer implements MongoInterface {
     public static final String PACKAGE = "Package";
     public static final String RECIPIENT = "Recipient";
     public static final String SUPPLIER = "Supplier";
-    private final MongoCollection<Document> recipientCollection;
-    private final MongoCollection<Document> packageCollection;
-    private final MongoCollection<Document> supplierCollection;
+    private MongoCollection<Document> recipientCollection;
+    private MongoCollection<Document> packageCollection;
+    private MongoCollection<Document> supplierCollection;
     private final Validation validateServer = new Validation();
     private MongoDatabase database;
 
     public MongoServer() {
+        try {
+            // Create custom codec for Recipient
+            RecipientCodec recipientCodec = new RecipientCodec();
 
-        // Create custom codec for Recipient
-        RecipientCodec recipientCodec = new RecipientCodec();
+            // Create custom codec for Package
+            PackageCodec packageCodec = new PackageCodec();
 
-        // Create custom codec for Package
-        PackageCodec packageCodec = new PackageCodec();
+            // Create custom codec for Supplier
+            SupplierCodec supplierCodec = new SupplierCodec();
 
-        // Create custom codec for Supplier
-        SupplierCodec supplierCodec = new SupplierCodec();
+            // Register the custom codec along with the default codecs
+            CodecRegistry codecRegistry = CodecRegistries.fromRegistries(
+                    MongoClientSettings.getDefaultCodecRegistry(),
+                    CodecRegistries.fromCodecs(recipientCodec, packageCodec, supplierCodec)
+            );
 
-        // Register the custom codec along with the default codecs
-        CodecRegistry codecRegistry = CodecRegistries.fromRegistries(
-                MongoClientSettings.getDefaultCodecRegistry(),
-                CodecRegistries.fromCodecs(recipientCodec, packageCodec, supplierCodec)
-        );
+            // Configure MongoClientSettings with the custom codec registry
+            MongoClientSettings settings = MongoClientSettings.builder()
+                    .codecRegistry(codecRegistry)
+                    .build();
 
-        // Configure MongoClientSettings with the custom codec registry
-        MongoClientSettings settings = MongoClientSettings.builder()
-                .codecRegistry(codecRegistry)
-                .build();
+            // Create MongoClient with custom settings
+            MongoClient mongoClient = MongoClients.create(settings);
+            // Connect to the MongoDB instance running in the Docker container
+            // Try to connect to the MongoDB instance running in the Docker container
+            if (mongoClient != null) {
+                database = mongoClient.getDatabase("db");
 
-        // Create MongoClient with custom settings
-        MongoClient mongoClient = MongoClients.create(settings);
-        // Connect to the MongoDB instance running in the Docker container
-        if (mongoClient.getDatabase("db") != null) {
+                if (database != null) {
+                    database.drop();
+                }
 
-            database = mongoClient.getDatabase("db");
-            database.drop();
+                //Create Collection
+                database.createCollection(RECIPIENT);
+                database.createCollection(PACKAGE);
+                database.createCollection(SUPPLIER);
+                recipientCollection = database.getCollection(RECIPIENT);
+                packageCollection = database.getCollection(PACKAGE);
+                supplierCollection = database.getCollection(SUPPLIER);
+
+                //Daten erstellen
+
+                Recipient recipient1 = new Recipient(1, "s", "d", "a", "1", "e");
+                Recipient recipient2 = new Recipient(2, "s2", "d2", "a2", "12", "e2");
+
+                Package aPackage1 = new Package(1, "asdf1", 1, 1, 1, 1, 1);
+                Package aPackage2 = new Package(2, "asdf2", 2, 2, 2, 2, 1);
+                Package aPackage3 = new Package(3, "asdf3", 1, 1, 1, 1, 2);
+                Package aPackage4 = new Package(4, "asdf4", 2, 2, 2, 2, 2);
+
+                Supplier supplier = new Supplier(1, "a1", "s2", "3f");
+
+                recipientCollection.insertOne(new Document(recipient1.toMap()));
+                recipientCollection.insertOne(new Document(recipient2.toMap()));
+
+                packageCollection.insertOne(new Document(aPackage1.toMap()));
+                packageCollection.insertOne(new Document(aPackage2.toMap()));
+                packageCollection.insertOne(new Document(aPackage3.toMap()));
+                packageCollection.insertOne(new Document(aPackage4.toMap()));
+
+                supplierCollection.insertOne(new Document(supplier.toMap()));
+
+                System.out.println("Connected to MongoDB successfully!");
+            } else {
+                System.out.println("Failed to connect to MongoDB. Check your connection settings.");
+            }
+        } catch (MongoException e) {
+            System.out.println("Error connecting to MongoDB: " + e.getMessage());
+            // Handle the exception as needed
         }
-        //Create Collection
-        database.createCollection(RECIPIENT);
-        database.createCollection(PACKAGE);
-        database.createCollection(SUPPLIER);
-        recipientCollection = database.getCollection(RECIPIENT);
-        packageCollection = database.getCollection(PACKAGE);
-        supplierCollection = database.getCollection(SUPPLIER);
-
-        //Daten erstellen
-
-        Recipient recipient1 = new Recipient(1, "s", "d", "a", "1", "e");
-        Recipient recipient2 = new Recipient(2, "s2", "d2", "a2", "12", "e2");
-
-        Package aPackage1 = new Package(1,"asdf1", 1, 1, 1, 1, 1);
-        Package aPackage2 = new Package(2,"asdf2", 2, 2, 2, 2, 1);
-        Package aPackage3 = new Package(3,"asdf3", 1, 1, 1, 1, 2);
-        Package aPackage4 = new Package(4,"asdf4", 2, 2, 2, 2, 2);
-
-        Supplier supplier = new Supplier(1,"a1", "s2", "3f");
-
-        recipientCollection.insertOne(new Document(recipient1.toMap()));
-        recipientCollection.insertOne(new Document(recipient2.toMap()));
-
-        packageCollection.insertOne(new Document(aPackage1.toMap()));
-        packageCollection.insertOne(new Document(aPackage2.toMap()));
-        packageCollection.insertOne(new Document(aPackage3.toMap()));
-        packageCollection.insertOne(new Document(aPackage4.toMap()));
-
-        supplierCollection.insertOne(new Document(supplier.toMap()));
-
     }
 
     @Override
@@ -94,7 +106,7 @@ public class MongoServer implements MongoInterface {
         FindIterable<Document> find = packageCollection.find();
 
         for (Document document : find) {
-            packageList.add(new Package(document.getInteger("id"),document.getString("content"), document.getInteger("weight"),
+            packageList.add(new Package(document.getInteger("id"), document.getString("content"), document.getInteger("weight"),
                     document.getInteger("length"), document.getInteger("depth"),
                     document.getInteger("height"), document.getInteger("recipientId")));
         }
@@ -120,7 +132,7 @@ public class MongoServer implements MongoInterface {
         MongoCollection<Document> collection = database.getCollection(SUPPLIER);
         FindIterable<Document> find = collection.find();
         for (Document document : find) {
-            supplierList.add(new Supplier(document.getInteger("id"),document.getString("firstName"),
+            supplierList.add(new Supplier(document.getInteger("id"), document.getString("firstName"),
                     document.getString("lastName"), document.getString("storeLocation")));
         }
         return supplierList;
@@ -213,7 +225,6 @@ public class MongoServer implements MongoInterface {
 
     /**
      * @param targetId
-
      */
     @Override
     public void deletePackage(int targetId) {

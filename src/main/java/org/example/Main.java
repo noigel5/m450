@@ -14,21 +14,21 @@ public class Main {
         MongoInterface db = new MongoServer();
 
         System.out.println("""
-                getRecipients -> gibt alle Recipients aus
-                getSuppliers -> gibt alle Supplier aus
-                getPackages -> gibt alle Packages aus
+                getRecipients -> show all Recipients
+                getSuppliers -> show all Suppliers
+                getPackages -> show all Packages 
                                 
-                createRecipient first_name last_name address phone_number email-> erstellt einen neuen Recipient
-                createSupplier first_name last_name store_location-> erstellt einen neuen Supplier
-                createPackage content weight length depth height recipient_id -> erstellt ein neues Paket
+                createRecipient first_name last_name address phone_number email-> create new Recipient
+                createSupplier first_name last_name store_location-> create new Supplier
+                createPackage content weight length depth height recipient_id -> create new Package
                                 
-                editRecipient id neue_Werte -> bearbeitet einen Wert von Recipient
-                editSupplier id neue_Werte -> bearbeitet einen Wert von Supplier
-                editPackage id neue_Werte -> bearbeitet einen Wert von Package
+                editRecipient id(old_value) first_name last_name address phone_number email-> edit values from Recipient
+                editSupplier id(old_value) first_name last_name store_location-> edit values from Supplier
+                editPackage id(old_value) content weight length depth height recipient_id -> edit values from Package
                                 
-                editRecipient id neue_Werte -> bearbeitet einen Wert von Recipient
-                editSupplier id neue_Werte -> bearbeitet einen Wert von Supplier
-                editPackage id neue_Werte -> bearbeitet einen Wert von Package
+                deleteRecipient id(existing_value)-> delete Recipient
+                deleteSupplier id(existing_value)-> delete Supplier
+                deletePackage id(existing_value)-> delete Package
                                 
                 """);
 //        System.out.println(db.findRecipientDocuments().stream().map(recipient -> recipient.getFirstName()).collect(Collectors.joining(", ")));
