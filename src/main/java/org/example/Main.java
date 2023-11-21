@@ -25,11 +25,11 @@ public class Main {
                 editRecipient id neue_Werte -> bearbeitet einen Wert von Recipient
                 editSupplier id neue_Werte -> bearbeitet einen Wert von Supplier
                 editPackage id neue_Werte -> bearbeitet einen Wert von Package
-                
+                                
                 editRecipient id neue_Werte -> bearbeitet einen Wert von Recipient
                 editSupplier id neue_Werte -> bearbeitet einen Wert von Supplier
                 editPackage id neue_Werte -> bearbeitet einen Wert von Package
-                
+                                
                 """);
 //        System.out.println(db.findRecipientDocuments().stream().map(recipient -> recipient.getFirstName()).collect(Collectors.joining(", ")));
         boolean exit = false;
@@ -37,62 +37,102 @@ public class Main {
         do {
 
             String[] nextLine = scanner.nextLine().split(" ");
+            Validation validation = new Validation();
 
             for (int i = 0; i < nextLine.length; i++) {
                 switch (nextLine[i]) {
                     case "getRecipients":
-                        db.findRecipients().forEach(Recipient::print);
+                        if (validation.inputAmount(nextLine.length, 1)){
+                            db.findRecipients().forEach(Recipient::print);
+                        }
                         break;
                     case "getSuppliers":
-                        db.findSuppliers().forEach(Supplier::print);
+                        if (validation.inputAmount(nextLine.length, 1)){
+                            db.findSuppliers().forEach(Supplier::print);
+                        }
                         break;
                     case "getPackages":
-                        db.findPackages().forEach(Package::print);
+                        if (validation.inputAmount(nextLine.length, 1)){
+                            db.findPackages().forEach(Package::print);
+                        }
                         break;
                     case "createRecipient":
-                        Recipient recipient = new Recipient(db.findRecipients().size()+1, nextLine[i + 1], nextLine[i + 2], nextLine[i + 3], nextLine[i + 4], nextLine[i + 5]);
-                        db.addRecipient(recipient);
-                        recipient.print();
+                        if (validation.inputAmount(nextLine.length, 6)){
+                            Recipient recipient = new Recipient(db.findRecipients().size() + 1, nextLine[i + 1], nextLine[i + 2], nextLine[i + 3], nextLine[i + 4], nextLine[i + 5]);
+                            db.addRecipient(recipient);
+                            recipient.print();
+                        }
                         break;
                     case "createSupplier":
-                        Supplier supplier = new Supplier( db.findSuppliers().size()+1,nextLine[i + 1], nextLine[i + 2], nextLine[i + 3]);
-                        db.addSupplier(supplier);
-                        supplier.print();
+                        if (validation.inputAmount(nextLine.length, 4)){
+                            Supplier supplier = new Supplier(db.findSuppliers().size() + 1, nextLine[i + 1], nextLine[i + 2], nextLine[i + 3]);
+                            db.addSupplier(supplier);
+                            supplier.print();
+                        }
                         break;
                     case "createPackage":
-                        Package aPackage = new Package(db.findPackages().size()+1,nextLine[i + 1],  Integer.valueOf(nextLine[i + 2]),  Integer.valueOf(nextLine[i + 3]),  Integer.valueOf(nextLine[i + 4]),  Integer.valueOf(nextLine[i + 5]),  Integer.valueOf(nextLine[i+6]));
-                        db.addPackage(aPackage);
-                        aPackage.print();
+                        if (validation.inputAmount(nextLine.length, 7)){
+                            if (validation.number(nextLine[i + 2], 2) && validation.number(nextLine[i + 3], 3) && validation.number(nextLine[i + 4], 4) && validation.number(nextLine[i + 5], 5) && validation.number(nextLine[i + 6], 6)) {
+                                Package aPackage = new Package(db.findPackages().size() + 1, nextLine[i + 1], Integer.parseInt(nextLine[i + 2]), Integer.parseInt(nextLine[i + 3]), Integer.parseInt(nextLine[i + 4]), Integer.parseInt(nextLine[i + 5]), Integer.parseInt(nextLine[i + 6]));
+                                db.addPackage(aPackage);
+                                aPackage.print();
+                            }
+                        }
                         break;
                     case "editRecipient":
-                        Recipient recipientEdit = new Recipient(Integer.valueOf(nextLine[i + 1]),  nextLine[i + 2],  nextLine[i + 3],  nextLine[i + 4],  nextLine[i + 5],  nextLine[i+6]);
-                        db.editRecipient(recipientEdit);
-                        recipientEdit.print();
+                        if (validation.inputAmount(nextLine.length, 7)){
+                            if (validation.number(nextLine[i + 1], 1)){
+                                Recipient recipientEdit = new Recipient(Integer.parseInt(nextLine[i + 1]), nextLine[i + 2], nextLine[i + 3], nextLine[i + 4], nextLine[i + 5], nextLine[i + 6]);
+                                db.editRecipient(recipientEdit);
+                                recipientEdit.print();
+                            }
+                        }
                         break;
                     case "editSupplier":
-                        Supplier supplierEdit = new Supplier(Integer.valueOf(nextLine[i + 1]), nextLine[i + 2],  nextLine[i + 3],  nextLine[i + 4]);
-                        db.editSupplier(supplierEdit);
-                        supplierEdit.print();
+                        if (validation.inputAmount(nextLine.length, 5)){
+                            if (validation.number(nextLine[i + 1], 4)){
+                                Supplier supplierEdit = new Supplier(Integer.parseInt(nextLine[i + 1]), nextLine[i + 2], nextLine[i + 3], nextLine[i + 4]);
+                                db.editSupplier(supplierEdit);
+                                supplierEdit.print();
+                            }
+                        }
                         break;
                     case "editPackage":
-                        Package aPackageEdit = new Package(Integer.valueOf(nextLine[i + 1]), nextLine[i + 2],  Integer.valueOf(nextLine[i + 3]),  Integer.valueOf(nextLine[i + 4]),  Integer.valueOf(nextLine[i + 5]),  Integer.valueOf(nextLine[i+6]),Integer.valueOf(nextLine[i + 6]));
-                        db.editPackage(aPackageEdit);
-                        aPackageEdit.print();
+                        if (validation.inputAmount(nextLine.length, 7)){
+                            if (validation.number(nextLine[i + 1], 1)&&validation.number(nextLine[i + 2], 2) && validation.number(nextLine[i + 3], 3) && validation.number(nextLine[i + 4], 4) && validation.number(nextLine[i + 5], 5) && validation.number(nextLine[i + 6], 6)) {
+                                Package aPackageEdit = new Package(Integer.parseInt(nextLine[i + 1]), nextLine[i + 2], Integer.parseInt(nextLine[i + 3]), Integer.parseInt(nextLine[i + 4]), Integer.parseInt(nextLine[i + 5]), Integer.parseInt(nextLine[i + 6]), Integer.parseInt(nextLine[i + 6]));
+                                db.editPackage(aPackageEdit);
+                                aPackageEdit.print();
+                            }
+                        }
                         break;
                     case "deleteRecipient":
-                        db.deleteRecipient(Integer.valueOf(nextLine[i + 1]));
-                        db.findRecipients().forEach(recipient1 -> recipient1.print());
+                        if (validation.inputAmount(nextLine.length, 2)){
+                            if (validation.number(nextLine[i + 1], 1)) {
+                                db.deleteRecipient(Integer.parseInt(nextLine[i + 1]));
+                                db.findRecipients().forEach(Recipient::print);
+                            }
+                        }
                         break;
                     case "deleteSupplier":
-                        db.deleteSupplier(Integer.valueOf(nextLine[i + 1]));
-                        db.findSuppliers().forEach(supplier1 -> supplier1.print());
+                        if (validation.inputAmount(nextLine.length, 2)){
+                            if (validation.number(nextLine[i + 1], 1)) {
+                                db.deleteSupplier(Integer.parseInt(nextLine[i + 1]));
+                                db.findSuppliers().forEach(Supplier::print);
+                            }
+                        }
                         break;
                     case "deletePackage":
-                        db.deletePackage(Integer.valueOf(nextLine[i + 1]));
-                        db.findPackages().forEach(aPackage1 -> aPackage1.print());
+                        if (validation.inputAmount(nextLine.length, 2)){
+                            if (validation.number(nextLine[i + 1], 1)) {
+                                db.deletePackage(Integer.parseInt(nextLine[i + 1]));
+                                db.findPackages().forEach(Package::print);
+                            }
+                        }
                         break;
 
-                    case "exit":
+
+                    default:
                         exit = true;
                         System.out.println("Exit");
                         break;

@@ -7,12 +7,12 @@ import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.conversions.Bson;
+import org.example.Validation;
 import org.example.model.Package;
 import org.example.model.Recipient;
 import org.example.model.Supplier;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MongoServer implements MongoInterface {
@@ -22,6 +22,7 @@ public class MongoServer implements MongoInterface {
     private final MongoCollection<Document> recipientCollection;
     private final MongoCollection<Document> packageCollection;
     private final MongoCollection<Document> supplierCollection;
+    private final Validation validateServer = new Validation();
     private MongoDatabase database;
 
     public MongoServer() {
@@ -54,16 +55,6 @@ public class MongoServer implements MongoInterface {
             database = mongoClient.getDatabase("db");
             database.drop();
         }
-        // MongoDB admin credentials
-        String adminUsername = "admin";
-        String adminPassword = "adminPassword";
-
-        database = mongoClient.getDatabase("admin");
-        database.runCommand( new Document("createUser", adminUsername)
-                .append("pwd", adminPassword)
-                .append("roles", List.of("userAdminAnyDatabase")));
-        System.out.println("Admin user created successfully.");
-
         //Create Collection
         database.createCollection(RECIPIENT);
         database.createCollection(PACKAGE);
@@ -164,8 +155,12 @@ public class MongoServer implements MongoInterface {
      */
     @Override
     public void editRecipient(Recipient recipientEdit) {
-        Bson filter = Filters.eq("id", recipientEdit.getId());
-        recipientCollection.findOneAndReplace(filter, new Document(recipientEdit.toMap()));
+        int targetId = recipientEdit.getId();
+        Bson filter = Filters.eq("id", targetId);
+        if (validateServer.existID(recipientCollection, targetId)) {
+            recipientCollection.findOneAndReplace(filter, new Document(recipientEdit.toMap()));
+            System.out.println("Edit operation completed successfully.");
+        }
     }
 
     /**
@@ -173,8 +168,12 @@ public class MongoServer implements MongoInterface {
      */
     @Override
     public void editSupplier(Supplier supplierEdit) {
+        int targetId = supplierEdit.getId();
         Bson filter = Filters.eq("id", supplierEdit.getId());
-        supplierCollection.findOneAndReplace(filter, new Document(supplierEdit.toMap()));
+        if (validateServer.existID(supplierCollection, targetId)) {
+            supplierCollection.findOneAndReplace(filter, new Document(supplierEdit.toMap()));
+            System.out.println("Edit operation completed successfully.");
+        }
     }
 
     /**
@@ -182,35 +181,45 @@ public class MongoServer implements MongoInterface {
      */
     @Override
     public void editPackage(Package aPackageEdit) {
+        int targetId = aPackageEdit.getId();
         Bson filter = Filters.eq("id", aPackageEdit.getId());
-        packageCollection.findOneAndReplace(filter, new Document(aPackageEdit.toMap()));
+        if (validateServer.existID(packageCollection, targetId)) {
+            packageCollection.findOneAndReplace(filter, new Document(aPackageEdit.toMap()));
+            System.out.println("Edit operation completed successfully.");
+        }
     }
 
     /**
-     * @param id
+     * @param targetId
      */
     @Override
-    public void deleteRecipient(int id) {
-        Bson filter = Filters.eq("id", id);
-        recipientCollection.deleteOne(filter);
+    public void deleteRecipient(int targetId) {
+        Bson filter = Filters.eq("id", targetId);
+        if (validateServer.existID(recipientCollection, targetId)) {
+            recipientCollection.deleteOne(filter);
+        }
     }
 
     /**
-     * @param id
+     * @param targetId
      */
     @Override
-    public void deleteSupplier(int id) {
-        Bson filter = Filters.eq("id", id);
-        supplierCollection.deleteOne(filter);
-
+    public void deleteSupplier(int targetId) {
+        Bson filter = Filters.eq("id", targetId);
+        if (validateServer.existID(supplierCollection, targetId)) {
+            supplierCollection.deleteOne(filter);
+        }
     }
 
     /**
-     * @param id
+     * @param targetId
+
      */
     @Override
-    public void deletePackage(int id) {
-        Bson filter = Filters.eq("id", id);
-        packageCollection.deleteOne(filter);
+    public void deletePackage(int targetId) {
+        Bson filter = Filters.eq("id", targetId);
+        if (validateServer.existID(packageCollection, targetId)) {
+            packageCollection.deleteOne(filter);
+        }
     }
 }
