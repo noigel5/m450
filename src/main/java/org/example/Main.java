@@ -31,7 +31,6 @@ public class Main {
                 deletePackage id(existing_value)-> delete Package
                                 
                 """);
-//        System.out.println(db.findRecipientDocuments().stream().map(recipient -> recipient.getFirstName()).collect(Collectors.joining(", ")));
         boolean exit = false;
 
         do {
