@@ -29,7 +29,8 @@ public class Main {
                 deleteRecipient id(existing_value)-> delete Recipient
                 deleteSupplier id(existing_value)-> delete Supplier
                 deletePackage id(existing_value)-> delete Package
-                                
+                
+                exit -> exit program                
                 """);
         boolean exit = false;
 
@@ -129,11 +130,9 @@ public class Main {
                             }
                         }
                         break;
-
-
-                    default:
+                    case "exit":
                         exit = true;
-                        System.out.println("Exit");
+                        System.out.println("Exiting program...");
                         break;
                 }
             }
