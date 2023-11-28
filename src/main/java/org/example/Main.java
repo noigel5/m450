@@ -98,9 +98,9 @@ public class Main {
                         }
                         break;
                     case "editPackage":
-                        if (validation.inputAmount(nextLine.length, 7)){
-                            if (validation.number(nextLine[i + 1], 1) && validation.number(nextLine[i + 3], 3) && validation.number(nextLine[i + 4], 4) && validation.number(nextLine[i + 5], 5) && validation.number(nextLine[i + 6], 6)) {
-                                Package aPackageEdit = new Package(Integer.parseInt(nextLine[i + 1]), nextLine[i + 2], Integer.parseInt(nextLine[i + 3]), Integer.parseInt(nextLine[i + 4]), Integer.parseInt(nextLine[i + 5]), Integer.parseInt(nextLine[i + 6]), Integer.parseInt(nextLine[i + 6]));
+                        if (validation.inputAmount(nextLine.length, 8)){
+                            if (validation.number(nextLine[i + 1], 1) && validation.number(nextLine[i + 3], 3) && validation.number(nextLine[i + 4], 4) && validation.number(nextLine[i + 5], 5) && validation.number(nextLine[i + 6], 6) && validation.number(nextLine[i + 7], 7)) {
+                                Package aPackageEdit = new Package(Integer.parseInt(nextLine[i + 1]), nextLine[i + 2], Integer.parseInt(nextLine[i + 3]), Integer.parseInt(nextLine[i + 4]), Integer.parseInt(nextLine[i + 5]), Integer.parseInt(nextLine[i + 6]), Integer.parseInt(nextLine[i + 7]));
                                 db.editPackage(aPackageEdit);
                                 aPackageEdit.print();
                             }

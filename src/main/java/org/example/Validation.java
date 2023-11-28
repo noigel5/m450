@@ -11,7 +11,7 @@ public class Validation {
             int number = Integer.parseInt(userInput);
 
             // If successful, print the result
-            System.out.println("Parsed Integer: " + number);
+            System.out.println("Parsed Integer: " +number +" in the position "+ inputPosition);
             return true;
         } catch (NumberFormatException e) {
             // If parsing fails, catch the exception
