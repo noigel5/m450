@@ -1,0 +1,22 @@
+2023-12-12 10:00:12,412 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2023-12-12 10:00:12,434 INFO o.a.j.JMeter: Loading user properties from: user.properties
+2023-12-12 10:00:12,435 INFO o.a.j.JMeter: Loading system properties from: system.properties
+2023-12-12 10:00:12,446 INFO o.a.j.JMeter: Copyright (c) 1998-2023 The Apache Software Foundation
+2023-12-12 10:00:12,446 INFO o.a.j.JMeter: Version 5.6.2
+2023-12-12 10:00:12,446 INFO o.a.j.JMeter: java.version=19.0.2
+2023-12-12 10:00:12,446 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2023-12-12 10:00:12,446 INFO o.a.j.JMeter: os.name=Windows 10
+2023-12-12 10:00:12,446 INFO o.a.j.JMeter: os.arch=amd64
+2023-12-12 10:00:12,447 INFO o.a.j.JMeter: os.version=10.0
+2023-12-12 10:00:12,447 INFO o.a.j.JMeter: file.encoding=UTF-8
+2023-12-12 10:00:12,447 INFO o.a.j.JMeter: java.awt.headless=null
+2023-12-12 10:00:12,447 INFO o.a.j.JMeter: Max memory     =1073741824
+2023-12-12 10:00:12,447 INFO o.a.j.JMeter: Available Processors =8
+2023-12-12 10:00:12,460 INFO o.a.j.JMeter: Default Locale=English (EN)
+2023-12-12 10:00:12,461 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2023-12-12 10:00:12,461 INFO o.a.j.JMeter: JMeterHome=C:\Users\laptopAdmin\IdeaProjects\m450\res\apache-jmeter-5.6.2
+2023-12-12 10:00:12,461 INFO o.a.j.JMeter: user.dir  =C:\Users\laptopAdmin\IdeaProjects\m450\res\apache-jmeter-5.6.2\bin
+2023-12-12 10:00:12,461 INFO o.a.j.JMeter: PWD       =C:\Users\laptopAdmin\IdeaProjects\m450\res\apache-jmeter-5.6.2\bin
+2023-12-12 10:00:12,462 INFO o.a.j.JMeter: IP: 10.23.0.14 Name: DESKTOP-VH7H55P FullName: DESKTOP-VH7H55P
+2023-12-12 10:00:12,484 INFO o.a.j.JMeter: Loaded icon properties from org/apache/jmeter/images/icon.properties
+2023-12-12 10:00:12,787 INFO o.a.j.JMeterGuiLauncher: Setting LAF to: com.github.weisj.darklaf.DarkLaf:com.github.weisj.darklaf.theme.DarculaTheme
