@@ -32,7 +32,7 @@ class MongoServerTest {
     }
 
     @Test
-    void findPackages() {
+    public void findPackages() {
         assertThat(mongoServerMock.findPackages()).hasSize(0);
         mongoServerMock.addPackage(packageList.get(0));
         mongoServerMock.addPackage(packageList.get(1));
@@ -42,7 +42,7 @@ class MongoServerTest {
     }
 
     @Test
-    void findRecipients() {
+    public void findRecipients() {
         assertThat(mongoServerMock.findRecipients()).hasSize(0);
         mongoServerMock.addRecipient(recipientList.get(0));
         mongoServerMock.addRecipient(recipientList.get(1));
@@ -52,7 +52,7 @@ class MongoServerTest {
     }
 
     @Test
-    void findSuppliers() {
+    public void findSuppliers() {
         assertThat(mongoServerMock.findSuppliers()).hasSize(0);
         mongoServerMock.addSupplier(supplierList.get(0));
         mongoServerMock.addSupplier(supplierList.get(1));
