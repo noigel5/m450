@@ -12,18 +12,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 public class LoadTest {
     @Test
     @TestMappings({
-            @TestMapping(testClass = MongoServerTest.class, testMethod = "findPackages"),
-            @TestMapping(testClass = MongoServerTest.class, testMethod = "findRecipients"),
-            @TestMapping(testClass = MongoServerTest.class, testMethod = "findSuppliers"),
-            @TestMapping(testClass = MongoServerTest.class, testMethod = "addPackages"),
-            @TestMapping(testClass = MongoServerTest.class, testMethod = "addRecipients"),
-            @TestMapping(testClass = MongoServerTest.class, testMethod = "addSuppliers"),
-            @TestMapping(testClass = MongoServerTest.class, testMethod = "editPackages"),
-            @TestMapping(testClass = MongoServerTest.class, testMethod = "editRecipients"),
-            @TestMapping(testClass = MongoServerTest.class, testMethod = "editSuppliers"),
-            @TestMapping(testClass = MongoServerTest.class, testMethod = "deletePackages"),
-            @TestMapping(testClass = MongoServerTest.class, testMethod = "deleteRecipients"),
-            @TestMapping(testClass = MongoServerTest.class, testMethod = "deleteSuppliers")
+            @TestMapping(testClass = MongoServerTestWithoutMock.class, testMethod = "findPackages"),
+            @TestMapping(testClass = MongoServerTestWithoutMock.class, testMethod = "findRecipients"),
+            @TestMapping(testClass = MongoServerTestWithoutMock.class, testMethod = "findSuppliers"),
+            @TestMapping(testClass = MongoServerTestWithoutMock.class, testMethod = "addPackages"),
+            @TestMapping(testClass = MongoServerTestWithoutMock.class, testMethod = "addRecipients"),
+            @TestMapping(testClass = MongoServerTestWithoutMock.class, testMethod = "addSuppliers"),
+            @TestMapping(testClass = MongoServerTestWithoutMock.class, testMethod = "editPackages"),
+            @TestMapping(testClass = MongoServerTestWithoutMock.class, testMethod = "editRecipients"),
+            @TestMapping(testClass = MongoServerTestWithoutMock.class, testMethod = "editSuppliers"),
+            @TestMapping(testClass = MongoServerTestWithoutMock.class, testMethod = "deletePackages"),
+            @TestMapping(testClass = MongoServerTestWithoutMock.class, testMethod = "deleteRecipients"),
+            @TestMapping(testClass = MongoServerTestWithoutMock.class, testMethod = "deleteSuppliers")
     })
     public void mongoLoadTests() {
         // This space remains empty
