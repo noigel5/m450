@@ -1,4 +1,4 @@
-package org.gatling;
+package org.example.gatling;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;

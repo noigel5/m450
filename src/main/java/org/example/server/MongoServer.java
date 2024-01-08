@@ -233,4 +233,11 @@ public class MongoServer implements MongoInterface {
             packageCollection.deleteOne(filter);
         }
     }
+
+    public void clean() {
+        database.drop();
+        database.createCollection(SUPPLIER);
+        database.createCollection(RECIPIENT);
+        database.createCollection(PACKAGE);
+    }
 }
